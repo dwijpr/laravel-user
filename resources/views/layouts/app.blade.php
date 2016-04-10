@@ -12,12 +12,12 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    {!! Html::style('thirdparty/bootstrap/3.3.6/css/bootstrap.css') !!}
 
     <style>
         body {
             font-family: 'Lato';
+            padding-top: 70px;
         }
 
         .fa-btn {
@@ -26,7 +26,7 @@
     </style>
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
 
@@ -76,7 +76,7 @@
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    {!! Html::script('thirdparty/bootstrap/3.3.6/js/bootstrap.js') !!}
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>
