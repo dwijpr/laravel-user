@@ -19,9 +19,9 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/users', 'UserController@index');
-Route::get('/user', 'UserController@create');
-Route::post('/user', 'UserController@store');
-Route::get('/user/{user}', 'UserController@edit');
-Route::patch('/user/{user}', 'UserController@update');
-Route::delete('/user/{user}', 'UserController@destroy');
+Route::get(     '/users',       'UserController@index');
+Route::get(     '/user',        'UserController@create');
+Route::post(    '/user',        'UserController@store');
+Route::get(     '/user/{user}', 'UserController@edit');
+Route::patch(   '/user/{user}', 'UserController@update');
+Route::delete(  '/user/{user}', 'UserController@destroy');
