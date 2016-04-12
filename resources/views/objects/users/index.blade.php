@@ -8,9 +8,10 @@
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <td>id</td>
-                            <td>name</td>
-                            <td>email</td>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,6 +20,9 @@
                                 <td>{{ $object->id }}</td>
                                 <td>{{ $object->name }}</td>
                                 <td>{{ $object->email }}</td>
+                                <td>
+                                    @include('partials.crud_action')
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

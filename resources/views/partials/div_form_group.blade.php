@@ -2,10 +2,23 @@
     <label class="col-md-4 control-label">{{$label}}</label>
 
     <div class="col-md-6">
-        <input
-            type="{{ @$input['type']?:'text' }}"
-            class="form-control" name="{{$name}}" value="{{ old($name) }}">
-
+        <?php
+            $type = @$type?:'text';
+        ?>
+        <?php
+            switch ($type) {
+                case 'password':
+                    echo Form::{$type}($name, [
+                        'class' => 'form-control',
+                    ]);
+                    break;
+                default:
+                    echo Form::{$type}($name, (@$value?:""), [
+                        'class' => 'form-control',
+                    ]);
+                    break;
+            }
+        ?>
         @if ($errors->has($name))
             <span class="help-block">
                 <strong>{{ $errors->first($name) }}</strong>

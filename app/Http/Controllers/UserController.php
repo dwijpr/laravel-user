@@ -31,10 +31,28 @@ class UserController extends Controller
         return redirect('/users');
     }
 
-    private function validation() {
+    public function destroy(User $user){
+        $user->delete();
+        return redirect('/users');
+    }
+
+    public function edit(User $user){
+        return view('objects.users.edit', [
+            'object' => $user,
+        ]);
+    }
+
+    public function update(Request $request, User $user){
+        $this->validate($request, $this->validation($user->id));
+        $user->update($this->data($request));
+        return redirect('/users');
+    }
+
+    private function validation($id = false) {
         return [
             'name' => 'required:max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users,email'
+                .($id ? ",$id,id" : ''),
             'password' => 'required|min:6',
         ];
     }
