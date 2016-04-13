@@ -21,9 +21,35 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/dashboard', 'DashboardController@index');
 
-Route::get(     '/dashboard/users',       'UserController@index');
-Route::get(     '/dashboard/user',        'UserController@create');
-Route::post(    '/dashboard/user',        'UserController@store');
-Route::get(     '/dashboard/user/{user}', 'UserController@edit');
-Route::patch(   '/dashboard/user/{user}', 'UserController@update');
-Route::delete(  '/dashboard/user/{user}', 'UserController@destroy');
+
+$objects = [
+    "User",
+    "Role",
+    "Permission",
+];
+
+foreach ($objects as $i => $v) {
+    $object = new \stdClass;
+    $object->class = $v;
+    $object->singularName = strtolower($v);
+    $object->pluralName = str_plural($object->singularName);
+    CRUDRoutes($object);
+}
+
+function _route($method, $uri, $controller){
+    $root = "/dashboard/";
+    Route::$method($root.$uri, $controller);
+}
+
+function CRUDRoutes($object){
+    $controller = $object->class.'Controller@';
+    $plural = $object->pluralName;
+    $single = $object->singularName;
+
+    _route('get',    $plural,   $controller.'index');
+    _route('get',    $single, $controller.'create');
+    _route('post',   $single, $controller.'store');
+    _route('get',    $single.'/'."{{$single}}", $controller.'edit');
+    _route('patch',  $single.'/'."{{$single}}", $controller.'update');
+    _route('delete', $single.'/'."{{$single}}", $controller.'destroy');
+}
