@@ -10,7 +10,17 @@ class Role extends Model
         return $this->belongsToMany(Permission::class);
     }
 
-    public function assign(Permission $permission) {
+    public function assign($permission) {
+        if(is_array($permission)){
+            foreach ($permission as $_p) {
+                $this->_assign($_p);
+            }
+        }else{
+            return $this->_assign($permission);
+        }
+    }
+
+    private function _assign(Permission $permission) {
         return $this->permissions()->save($permission);
     }
 }
