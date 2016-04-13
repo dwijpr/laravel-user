@@ -3,6 +3,10 @@
 namespace App;
 
 trait MyModel {
-    abstract static function listFields();
-    abstract static function toBeFilledFields();
+    public static function listFields() {
+        return [];
+    }
+    public static function toBeFilledFields() {
+        return [];
+    }
 }
