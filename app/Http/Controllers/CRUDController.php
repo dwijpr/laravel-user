@@ -17,26 +17,28 @@ abstract class CRUDController extends Controller {
     ) {
         $this->struct = new \stdClass;
         $this->struct->model = 'App\\'.$model;
-        $this->struct->_model = strtolower($model);
-        $this->struct->tableName = str_plural($this->struct->_model);
+        $this->struct->single = strtolower($model);
+        $this->struct->plural = str_plural($this->struct->single);
         $this->struct->backend = $backend;
         $this->struct->view = $view;
         $this->struct->viewPath = $this->struct->view
-            .'.'.$this->struct->tableName;
+            .'.'.$this->struct->plural;
         $this->struct->redirect = $this->struct->backend
-            .$this->struct->tableName;
+            .$this->struct->plural;
     }
 
     public function index() {
         $class = $this->struct->model;
         $objects = $class::all();
-        return view($this->struct->viewPath.'.index', [
+        return view('crud.index', [
             'objects' => $objects,
+            'class' => $class,
+            'classAttrs' => $this->struct,
         ]);
     }
 
     public function create() {
-        return view($this->struct->viewPath.'.create');
+        return view('crud.create');
     }
 
     public function store(Request $request) {

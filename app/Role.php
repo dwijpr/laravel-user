@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    public static $tableFields = [
+        'id', 'name', 'label'
+    ];
+
     public function permissions() {
         return $this->belongsToMany(Permission::class);
     }

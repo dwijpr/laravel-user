@@ -24,6 +24,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static $tableFields = [
+        'id', 'name', 'email'
+    ];
+
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
