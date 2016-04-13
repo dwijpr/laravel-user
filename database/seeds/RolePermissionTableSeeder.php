@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 use App\Role;
 use App\Permission;
+use App\User;
 
 class RolePermissionTableSeeder extends Seeder
 {
@@ -41,5 +42,7 @@ class RolePermissionTableSeeder extends Seeder
                 'label' => 'Can view dashboard',
             ]),
         ]);
+
+        User::find(1)->assign('root');
     }
 }
