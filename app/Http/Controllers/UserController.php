@@ -28,12 +28,12 @@ class UserController extends Controller
     public function store(Request $request) {
         $this->validate($request, $this->validation());
         User::create($this->data($request));
-        return redirect('/users');
+        return redirect('/dashboard/users');
     }
 
     public function destroy(User $user){
         $user->delete();
-        return redirect('/users');
+        return redirect('/dashboard/users');
     }
 
     public function edit(User $user){
@@ -45,7 +45,7 @@ class UserController extends Controller
     public function update(Request $request, User $user){
         $this->validate($request, $this->validation($user->id));
         $user->update($this->data($request));
-        return redirect('/users');
+        return redirect('/dashboard/users');
     }
 
     private function validation($id = false) {

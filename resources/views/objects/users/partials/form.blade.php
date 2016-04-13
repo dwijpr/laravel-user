@@ -1,5 +1,5 @@
 {!! Form::open([
-    'url' => @$url?:'user',
+    'url' => 'dashboard/'.(@$url?:'user'),
     'method' => @$method?:'post',
     'class' => 'form-horizontal',
     'role' => 'form',

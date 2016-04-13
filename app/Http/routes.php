@@ -19,9 +19,11 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get(     '/users',       'UserController@index');
-Route::get(     '/user',        'UserController@create');
-Route::post(    '/user',        'UserController@store');
-Route::get(     '/user/{user}', 'UserController@edit');
-Route::patch(   '/user/{user}', 'UserController@update');
-Route::delete(  '/user/{user}', 'UserController@destroy');
+Route::get('/dashboard', 'DashboardController@index');
+
+Route::get(     '/dashboard/users',       'UserController@index');
+Route::get(     '/dashboard/user',        'UserController@create');
+Route::post(    '/dashboard/user',        'UserController@store');
+Route::get(     '/dashboard/user/{user}', 'UserController@edit');
+Route::patch(   '/dashboard/user/{user}', 'UserController@update');
+Route::delete(  '/dashboard/user/{user}', 'UserController@destroy');

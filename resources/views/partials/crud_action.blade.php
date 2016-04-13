@@ -18,7 +18,7 @@
 </div>
 
 {!! Form::open([
-    'url' => 'user/'.$object->id,
+    'url' => 'dashboard/user/'.$object->id,
     'id' => $crudActionFormID,
     'method' => 'delete',
 ]) !!}

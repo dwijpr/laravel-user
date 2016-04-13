@@ -38,7 +38,7 @@ class RolePermissionTableSeeder extends Seeder
             ]),
             Permission::create([
                 'name' => 'view-dashboard',
-                'label' => 'Can delete user',
+                'label' => 'Can view dashboard',
             ]),
         ]);
     }
