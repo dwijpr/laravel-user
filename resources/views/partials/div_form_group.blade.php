@@ -10,11 +10,13 @@
                 case 'password':
                     echo Form::{$type}($name, [
                         'class' => 'form-control',
+                        'readonly' => @$readonly,
                     ]);
                     break;
                 default:
                     echo Form::{$type}($name, (@$value?:""), [
                         'class' => 'form-control',
+                        'readonly' => @$readonly,
                     ]);
                     break;
             }

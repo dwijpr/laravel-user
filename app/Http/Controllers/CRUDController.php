@@ -37,6 +37,16 @@ abstract class CRUDController extends Controller {
         ]);
     }
 
+    public function view($id) {
+        $class = $this->struct->model;
+        $object = $class::findOrFail($id);
+        return view('crud.view', [
+            'object' => $object,
+            'class' => $class,
+            'classAttrs' => $this->struct,
+        ]);
+    }
+
     public function create() {
         $class = $this->struct->model;
         return view('crud.create', [

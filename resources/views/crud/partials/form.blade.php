@@ -25,10 +25,20 @@
 
     <div class="form-group">
         <div class="col-md-6 col-md-offset-4">
-            <button type="submit" class="btn btn-primary">
-                <i class="fa fa-btn fa-user"></i>
-                {{ @$submitLabel?:'Create' }}
-            </button>
+            @if (!@$readonly)
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-btn fa-user"></i>
+                    {{ @$submitLabel?:'Create' }}
+                </button>
+            @else
+                <a href="{{ url(
+                    $classAttrs->backend.$classAttrs->single.'/'.$object->id
+                ) }}" class="btn btn-info">
+                    <i class="fa fa-btn fa-edit"></i>
+                    Edit
+                </a>
+            @endif
         </div>
     </div>
+
 {!! Form::close() !!}

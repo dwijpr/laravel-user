@@ -46,9 +46,10 @@ function CRUDRoutes($object){
     $plural = $object->pluralName;
     $single = $object->singularName;
 
-    _route('get',    $plural,   $controller.'index');
-    _route('get',    $single, $controller.'create');
-    _route('post',   $single, $controller.'store');
+    _route('get',    $plural,                   $controller.'index');
+    _route('get',    $plural.'/'."{{$single}}", $controller.'view');
+    _route('get',    $single,                   $controller.'create');
+    _route('post',   $single,                   $controller.'store');
     _route('get',    $single.'/'."{{$single}}", $controller.'edit');
     _route('patch',  $single.'/'."{{$single}}", $controller.'update');
     _route('delete', $single.'/'."{{$single}}", $controller.'destroy');

@@ -5,7 +5,7 @@
 <div class="btn-group" role="group" aria-label="Action">
     <button
         type="submit"
-        class="btn btn-danger"
+        class="btn btn-default"
         title="Delete"
         id="{{ $crudActionFormID }}-button"
         data-form="{{ $crudActionFormID }}"
@@ -14,8 +14,13 @@
     </button>
     <a href="{{ url(
         $classAttrs->backend.$classAttrs->single.'/'.$object->id
-    ) }}" class="btn btn-info">
+    ) }}" class="btn btn-default">
         <i class="fa fa-edit"></i>
+    </a>
+    <a href="{{ url(
+        $classAttrs->backend.$classAttrs->plural.'/'.$object->id
+    ) }}" class="btn btn-default">
+        <i class="fa fa-eye"></i>
     </a>
 </div>
 
