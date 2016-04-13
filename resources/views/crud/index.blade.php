@@ -11,7 +11,7 @@
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    @foreach ($class::$tableFields as $field)
+                                    @foreach ($class::listFields() as $field)
                                         <td>{{ $field }}</td>
                                     @endforeach
                                     <td>Action</td>
@@ -21,12 +21,12 @@
                                 @foreach($objects as $object)
                                     <tr>
                                         @foreach (
-                                            $class::$tableFields as $field
+                                            $class::listFields() as $field
                                         )
                                             <td>{{ $object->$field }}</td>
                                         @endforeach
                                         <td>
-                                            @include('partials.crud_action')
+                                            @include('crud.partials.action')
                                         </td>
                                     </tr>
                                 @endforeach

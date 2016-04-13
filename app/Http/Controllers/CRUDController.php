@@ -38,7 +38,11 @@ abstract class CRUDController extends Controller {
     }
 
     public function create() {
-        return view('crud.create');
+        $class = $this->struct->model;
+        return view('crud.create', [
+            'class' => $class,
+            'classAttrs' => $this->struct,
+        ]);
     }
 
     public function store(Request $request) {
@@ -58,8 +62,10 @@ abstract class CRUDController extends Controller {
     public function edit($id) {
         $class = $this->struct->model;
         $object = $class::findOrFail($id);
-        return view($this->struct->viewPath.'.edit', [
+        return view('crud.edit', [
             'object' => $object,
+            'class' => $class,
+            'classAttrs' => $this->struct,
         ]);
     }
 

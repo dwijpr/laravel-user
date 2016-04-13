@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    public static $tableFields = [
-        'id', 'name', 'label'
+    use MyModel;
+
+    protected $fillable = [
+        'name', 'label',
     ];
 
     public function permissions() {
@@ -26,5 +28,22 @@ class Role extends Model
 
     private function _assign(Permission $permission) {
         return $this->permissions()->save($permission);
+    }
+
+    /*
+     * MyModel Trait
+     */
+
+    public static function listFields() {
+        return [
+            'id', 'name', 'label'
+        ];
+    }
+    
+    public static function toBeFilledFields() {
+        return [
+            'name' => 'text',
+            'label' => 'text',
+        ];
     }
 }

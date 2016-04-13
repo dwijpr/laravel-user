@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use MyModel;
     /**
      * The attributes that are mass assignable.
      *
@@ -22,10 +23,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
-    ];
-
-    public static $tableFields = [
-        'id', 'name', 'email'
     ];
 
     public function roles(){
@@ -45,5 +42,23 @@ class User extends Authenticatable
             Role::whereName($role)->firstOrFail()
             :$role
         );
+    }
+
+    /*
+     * MyModel Trait
+     */
+
+    public static function listFields() {
+        return [
+            'id', 'name', 'email',
+        ];
+    }
+
+    public static function toBeFilledFields(){
+        return [
+            'name' => 'text',
+            'email' => 'text',
+            'password' => 'password',
+        ];
     }
 }
