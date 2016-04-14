@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Role;
+use App\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
         });
         Role::saved(function ($role) {
             $role->updatePermissions();
+        });
+        User::created(function ($user) {
+            $user->updateRoles();
+        });
+        User::saved(function ($user) {
+            $user->updateRoles();
         });
     }
 

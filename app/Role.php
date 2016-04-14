@@ -28,8 +28,8 @@ class Role extends Model
 
     public function updatePermissions(){
         $permissions = request()->permissions;
-        $this->permissions()->detach();
         if (count($permissions) > 0) {
+            $this->permissions()->detach();
             foreach($permissions as $permission) {
                 $this->assign($permission);
             }

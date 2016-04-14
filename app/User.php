@@ -25,6 +25,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function updateRoles(){
+        $roles = request()->roles;
+        if (count($roles) > 0) {
+            $this->roles()->detach();
+            foreach($roles as $role) {
+                $this->assignById($role);
+            }
+        }
+    }
+
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
@@ -40,6 +50,14 @@ class User extends Authenticatable
         return $this->roles()->save(
             is_string($role)?
             Role::whereName($role)->firstOrFail()
+            :$role
+        );
+    }
+
+    public function assignById($role){
+        return $this->roles()->save(
+            is_string($role)?
+            Role::whereId($role)->firstOrFail()
             :$role
         );
     }

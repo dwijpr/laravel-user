@@ -1,7 +1,7 @@
 <?php
 
 if (!function_exists('objectsToArray')) {
-    function objectsToArray($objects, $key) {
+    function objectsToArray($objects, $key = 'id') {
         $return = [];
         if (count($objects) > 0) {
             foreach ($objects as $o) {
