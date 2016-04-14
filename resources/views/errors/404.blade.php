@@ -28,9 +28,9 @@
     <div class="container">
         <div class="content">
             <h2>
-                <code>503</code>
+                <code>404</code>
             </h2>
-            <div class="title">Be right back.</div>
+            <div class="title">Not Found.</div>
         </div>
     </div>
 

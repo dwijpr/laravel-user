@@ -15,6 +15,7 @@ abstract class CRUDController extends Controller {
         , $backend = "dashboard/"
         , $view = "objects"
     ) {
+        parent::__construct();
         $this->struct = new \stdClass;
         $this->struct->model = 'App\\'.$model;
         $this->struct->single = strtolower($model);

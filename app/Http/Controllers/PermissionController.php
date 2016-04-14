@@ -10,6 +10,7 @@ class PermissionController extends CRUDController
 {
     public function __construct() {
         parent::__construct("Permission");
+        $this->authorize('view-dashboard', $this->_user);
     }
 
     protected function validation($id = false) {

@@ -10,6 +10,7 @@ class UserController extends CRUDController
 {
     public function __construct() {
         parent::__construct("User");
+        $this->authorize('view-dashboard', $this->_user);
     }
 
     protected function validation($id = false) {
@@ -27,5 +28,9 @@ class UserController extends CRUDController
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ];
+    }
+
+    protected function hasManyObjects() {
+        return "Role";
     }
 }

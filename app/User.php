@@ -59,6 +59,7 @@ class User extends Authenticatable
             'name' => 'text',
             'email' => 'text',
             'password' => 'password',
+            'roles' => 'multiple',
         ];
     }
 }

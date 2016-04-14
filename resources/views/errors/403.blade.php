@@ -28,9 +28,9 @@
     <div class="container">
         <div class="content">
             <h2>
-                <code>503</code>
+                <code>403</code>
             </h2>
-            <div class="title">Be right back.</div>
+            <div class="title">This action is Unauthorized.</div>
         </div>
     </div>
 

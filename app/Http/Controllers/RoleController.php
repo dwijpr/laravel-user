@@ -10,6 +10,7 @@ class RoleController extends CRUDController
 {
     public function __construct() {
         parent::__construct("Role");
+        $this->authorize('view-dashboard', $this->_user);
     }
 
     protected function validation($id = false) {
