@@ -23,7 +23,7 @@ class RolePermissionTableSeeder extends Seeder
         $role->assign([
             Permission::create([
                 'name' => 'view-user',
-                'label' => 'Can create user',
+                'label' => 'Can view user',
             ]),
             Permission::create([
                 'name' => 'create-user',

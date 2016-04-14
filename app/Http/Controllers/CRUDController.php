@@ -25,6 +25,11 @@ abstract class CRUDController extends Controller {
             .'.'.$this->struct->plural;
         $this->struct->redirect = $this->struct->backend
             .$this->struct->plural;
+        if (@$this->hasManyObjects()) {
+            $this->struct->hasMany = str_plural(
+                strtolower($this->hasManyObjects())
+            );
+        }
     }
 
     public function index() {
@@ -40,19 +45,29 @@ abstract class CRUDController extends Controller {
     public function view($id) {
         $class = $this->struct->model;
         $object = $class::findOrFail($id);
-        return view('crud.view', [
+        $data = [
             'object' => $object,
             'class' => $class,
             'classAttrs' => $this->struct,
-        ]);
+        ];
+        if($this->hasManyObjects()){
+            $hasManyObjects = 'App\\'.$this->hasManyObjects();
+            $data['hasManyObjects'] = $hasManyObjects::all();
+        }
+        return view('crud.view', $data);
     }
 
     public function create() {
         $class = $this->struct->model;
-        return view('crud.create', [
+        $data = [
             'class' => $class,
             'classAttrs' => $this->struct,
-        ]);
+        ];
+        if($this->hasManyObjects()){
+            $hasManyObjects = 'App\\'.$this->hasManyObjects();
+            $data['hasManyObjects'] = $hasManyObjects::all();
+        }
+        return view('crud.create', $data);
     }
 
     public function store(Request $request) {
@@ -72,11 +87,16 @@ abstract class CRUDController extends Controller {
     public function edit($id) {
         $class = $this->struct->model;
         $object = $class::findOrFail($id);
-        return view('crud.edit', [
+        $data = [
             'object' => $object,
             'class' => $class,
             'classAttrs' => $this->struct,
-        ]);
+        ];
+        if($this->hasManyObjects()){
+            $hasManyObjects = 'App\\'.$this->hasManyObjects();
+            $data['hasManyObjects'] = $hasManyObjects::all();
+        }
+        return view('crud.edit', $data);
     }
 
     public function update(Request $request, $id) {
@@ -90,4 +110,7 @@ abstract class CRUDController extends Controller {
     protected abstract function validation($id = false);
     protected abstract function data(Request $request);
 
+    protected function hasManyObjects(){
+        return false;
+    }
 }

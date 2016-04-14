@@ -7,6 +7,18 @@
         ?>
         <?php
             switch ($type) {
+                case 'select':
+                    echo Form::{$type}(
+                        $name
+                        , objectsToArrayKeyValue($hasManyObjects, 'id', 'name')
+                        , objectsToArray(@$object->{$classAttrs->hasMany}, 'id')
+                        , [
+                            'class' => 'form-control',
+                            'readonly' => @$readonly,
+                            'multiple' => @$multiple,
+                        ]
+                    );
+                    break;
                 case 'password':
                     echo Form::{$type}($name, [
                         'class' => 'form-control',

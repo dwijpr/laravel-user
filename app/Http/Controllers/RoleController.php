@@ -23,6 +23,11 @@ class RoleController extends CRUDController
         return [
             'name' => $request->name,
             'label' => $request->label,
+            'permissions' => $request->permissions,
         ];
+    }
+
+    protected function hasManyObjects() {
+        return "Permission";
     }
 }

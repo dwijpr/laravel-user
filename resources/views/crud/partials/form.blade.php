@@ -12,6 +12,11 @@
                 'label' => ucwords($field),
             ];
             switch ($value) {
+                case 'multiple':
+                    $data['name'] .= '[]';
+                    $data['type'] = 'select';
+                    $data['multiple'] = true;
+                    break;
                 case 'password':
                     $data['type'] = 'password';
                     break;

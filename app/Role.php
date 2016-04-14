@@ -26,7 +26,20 @@ class Role extends Model
         }
     }
 
-    private function _assign(Permission $permission) {
+    public function updatePermissions(){
+        $permissions = request()->permissions;
+        $this->permissions()->detach();
+        if (count($permissions) > 0) {
+            foreach($permissions as $permission) {
+                $this->assign($permission);
+            }
+        }
+    }
+
+    private function _assign($permission) {
+        if(!is_object($permission)){
+            $permission = Permission::findOrFail($permission);
+        }
         return $this->permissions()->save($permission);
     }
 
@@ -44,6 +57,7 @@ class Role extends Model
         return [
             'name' => 'text',
             'label' => 'text',
+            'permissions' => 'multiple',
         ];
     }
 }
