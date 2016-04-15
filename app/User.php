@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public static function listFields() {
         return [
-            'id', 'name', 'email',
+            'id', 'name', 'email', 'roles' => 'name',
         ];
     }
 

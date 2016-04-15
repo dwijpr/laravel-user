@@ -34,10 +34,12 @@ class RolePermissionTableSeeder extends Seeder
             'root' => Role::create([
                 'name' => 'root',
                 'label' => 'Have all permissions',
+                'priority' => 1,
             ]),
             'admin-user' => Role::create([
                 'name' => 'admin-user',
                 'label' => 'Have full access to manage users',
+                'priority' => 2,
             ]),
         ];
 

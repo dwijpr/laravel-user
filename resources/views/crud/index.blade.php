@@ -11,19 +11,30 @@
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    @foreach ($class::listFields() as $field)
-                                        <td>{{ $field }}</td>
+                                    @foreach (
+                                        $class::listFields() as $key => $field
+                                    )
+                                        <th>
+                                            @if (!is_numeric($key))
+                                                {{ ucwords($key) }}
+                                            @else
+                                                {{ ucwords($field) }}
+                                            @endif
+                                        </th>
                                     @endforeach
-                                    <td>Action</td>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($objects as $object)
                                     <tr>
                                         @foreach (
-                                            $class::listFields() as $field
+                                            $class::listFields()
+                                            as $key => $field
                                         )
-                                            <td>{{ $object->$field }}</td>
+                                            <td>
+                                                @include ('crud.partials.field')
+                                            </td>
                                         @endforeach
                                         <td>
                                             @include('crud.partials.action')
