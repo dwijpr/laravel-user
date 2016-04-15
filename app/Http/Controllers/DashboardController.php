@@ -8,8 +8,7 @@ use App\Http\Requests;
 
 class DashboardController extends Controller
 {
-    public function __construct(){
-        parent::__construct();
+    protected function afterLoginCheck(){
         if (!$this->authorized([
             'manage-users',
             'manage-roles',

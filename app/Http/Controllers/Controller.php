@@ -13,7 +13,16 @@ class Controller extends BaseController
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
     public function __construct() {
-        $this->_user = auth()->user();
+        if (auth()->user()) {
+            $this->_user = auth()->user();
+            $this->afterLoginCheck();
+        } else {
+            $this->middleware('auth');
+        }
+    }
+
+    protected function afterLoginCheck() {
+        return false;
     }
 
     protected function authorized($rule) {

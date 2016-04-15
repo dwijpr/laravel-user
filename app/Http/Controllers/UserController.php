@@ -10,6 +10,9 @@ class UserController extends CRUDController
 {
     public function __construct() {
         parent::__construct("User");
+    }
+
+    public function afterLoginCheck() {
         if (!$this->authorized('manage-users')) abort(403);
     }
 

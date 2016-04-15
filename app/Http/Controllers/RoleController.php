@@ -10,6 +10,9 @@ class RoleController extends CRUDController
 {
     public function __construct() {
         parent::__construct("Role");
+    }
+
+    public function afterLoginCheck() {
         if (!$this->authorized('manage-roles')) abort(403);
     }
 

@@ -10,6 +10,9 @@ class PermissionController extends CRUDController
 {
     public function __construct() {
         parent::__construct("Permission");
+    }
+
+    public function afterLoginCheck() {
         if (!$this->authorized('manage-permissions')) abort(403);
     }
 
