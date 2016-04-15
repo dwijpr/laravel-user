@@ -62,6 +62,22 @@ class User extends Authenticatable
         );
     }
 
+    public function hasHigherRolePriority($id) {
+        $_user = $this->findOrFail($id);
+        return 
+            ($this->id === $_user->id)
+            || (!$_user->rolePriority())
+            || ($this->rolePriority() < $_user->rolePriority());
+    }
+
+    private function rolePriority() {
+        $roles = objectsToArray($this->roles, 'priority');
+        if(count($roles)){
+            return min($roles);
+        }
+        return false;
+    }
+
     /*
      * MyModel Trait
      */

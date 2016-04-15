@@ -13,6 +13,24 @@ class UserController extends CRUDController
         if (!$this->authorized('manage-users')) abort(403);
     }
 
+    public function destroy($id) {
+        if ($this->_user->hasHigherRolePriority($id))
+            return parent::destroy($id);
+        abort(403);
+    }
+
+    public function edit($id) {
+        if ($this->_user->hasHigherRolePriority($id))
+            return parent::edit($id);
+        abort(403);
+    }
+
+    public function update($id) {
+        if ($this->_user->hasHigherRolePriority($id))
+            return parent::update($id);
+        abort(403);
+    }
+
     protected function validation($id = false) {
         return [
             'name' => 'required:max:255',
@@ -32,5 +50,9 @@ class UserController extends CRUDController
 
     protected function hasManyObjects() {
         return "Role";
+    }
+
+    protected function actionViewPath() {
+        return 'crud.partials.users.action';
     }
 }

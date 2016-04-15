@@ -31,6 +31,7 @@ abstract class CRUDController extends Controller {
                 strtolower($this->hasManyObjects())
             );
         }
+        $this->struct->actionViewPath = $this->actionViewPath();
     }
 
     public function index() {
@@ -111,7 +112,11 @@ abstract class CRUDController extends Controller {
     protected abstract function validation($id = false);
     protected abstract function data();
 
-    protected function hasManyObjects(){
+    protected function hasManyObjects() {
         return false;
+    }
+
+    protected function actionViewPath() {
+        return 'crud.partials.action';
     }
 }

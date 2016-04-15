@@ -37,7 +37,10 @@
                                             </td>
                                         @endforeach
                                         <td>
-                                            @include('crud.partials.action')
+
+                                            @include(
+                                                $classAttrs->actionViewPath
+                                            )
                                         </td>
                                     </tr>
                                 @endforeach
