@@ -71,10 +71,10 @@ abstract class CRUDController extends Controller {
         return view('crud.create', $data);
     }
 
-    public function store(Request $request) {
+    public function store() {
         $class = $this->struct->model;
-        $this->validate($request, $this->validation());
-        $class::create($this->data($request));
+        $this->validate(request(), $this->validation());
+        $class::create($this->data());
         return redirect($this->struct->redirect);
     }
 
@@ -100,16 +100,16 @@ abstract class CRUDController extends Controller {
         return view('crud.edit', $data);
     }
 
-    public function update(Request $request, $id) {
+    public function update($id) {
         $class = $this->struct->model;
         $object = $class::findOrFail($id);
-        $this->validate($request, $this->validation($object->id));
-        $object->update($this->data($request));
+        $this->validate(request(), $this->validation($object->id));
+        $object->update($this->data(request()));
         return redirect($this->struct->redirect);
     }
 
     protected abstract function validation($id = false);
-    protected abstract function data(Request $request);
+    protected abstract function data();
 
     protected function hasManyObjects(){
         return false;

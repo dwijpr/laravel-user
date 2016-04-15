@@ -15,34 +15,42 @@ class RolePermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::create([
-            'name' => 'root',
-            'label' => 'Can do Anything?',
+        $permissions = [
+            'manage-users' => Permission::create([
+                'name' => 'manage-users',
+                'label' => 'Permission to view, create, update, delete Users',
+            ]),
+            'manage-roles' => Permission::create([
+                'name' => 'manage-roles',
+                'label' => 'Permission to view, create, update, delete Roles',
+            ]),
+            'manage-permissions' => Permission::create([
+                'name' => 'manage-permissions',
+                'label' => 'Permission to view, create, update, delete Permissions',
+            ]),
+        ];
+
+        $roles = [
+            'root' => Role::create([
+                'name' => 'root',
+                'label' => 'Have all permissions',
+            ]),
+            'admin-user' => Role::create([
+                'name' => 'admin-user',
+                'label' => 'Have full access to manage users',
+            ]),
+        ];
+
+        $roles['root']->assign([
+            $permissions['manage-users'],
+            $permissions['manage-roles'],
+            $permissions['manage-permissions'],
+        ]);
+        $roles['admin-user']->assign([
+            $permissions['manage-users'],
         ]);
 
-        $role->assign([
-            Permission::create([
-                'name' => 'view-user',
-                'label' => 'Can view user',
-            ]),
-            Permission::create([
-                'name' => 'create-user',
-                'label' => 'Can create user',
-            ]),
-            Permission::create([
-                'name' => 'update-user',
-                'label' => 'Can update user',
-            ]),
-            Permission::create([
-                'name' => 'delete-user',
-                'label' => 'Can delete user',
-            ]),
-            Permission::create([
-                'name' => 'view-dashboard',
-                'label' => 'Can view dashboard',
-            ]),
-        ]);
-
-        User::find(1)->assign('root');
+        User::where(['email' => 'dwijpr@gmail.com'])->first()->assign('root');
+        User::where(['email' => 'owljpr@gmail.com'])->first()->assign('admin-user');
     }
 }

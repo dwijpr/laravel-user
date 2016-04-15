@@ -10,7 +10,7 @@ class UserController extends CRUDController
 {
     public function __construct() {
         parent::__construct("User");
-        $this->authorize('view-dashboard', $this->_user);
+        if (!$this->authorized('manage-users')) abort(403);
     }
 
     protected function validation($id = false) {
@@ -22,11 +22,11 @@ class UserController extends CRUDController
         ];
     }
 
-    protected function data(Request $request) {
+    protected function data() {
         return [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'name' => request()->name,
+            'email' => request()->email,
+            'password' => bcrypt(request()->password),
         ];
     }
 

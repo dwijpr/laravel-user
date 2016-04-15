@@ -16,6 +16,7 @@ class CreateRolesPermissionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('label')->nullable();
+            $table->integer('priority')->unsigned();
             $table->timestamps();
         });
         Schema::create('permissions', function (Blueprint $table) {

@@ -10,7 +10,13 @@ class DashboardController extends Controller
 {
     public function __construct(){
         parent::__construct();
-        $this->authorize('view-dashboard', $this->_user);
+        if (!$this->authorized([
+            'manage-users',
+            'manage-roles',
+            'manage-permissions',
+        ])) {
+            abort(403);
+        }
     }
 
     public function index(){

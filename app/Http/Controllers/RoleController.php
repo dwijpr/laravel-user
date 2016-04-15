@@ -10,7 +10,27 @@ class RoleController extends CRUDController
 {
     public function __construct() {
         parent::__construct("Role");
-        $this->authorize('view-dashboard', $this->_user);
+        if (!$this->authorized('manage-roles')) abort(403);
+    }
+
+    public function create() {
+        abort(403);
+    }
+
+    public function store() {
+        abort(403);
+    }
+
+    public function destroy($id) {
+        abort(403);
+    }
+
+    public function edit($id) {
+        abort(403);
+    }
+
+    public function update($id) {
+        abort(403);
     }
 
     protected function validation($id = false) {
@@ -20,11 +40,11 @@ class RoleController extends CRUDController
         ];
     }
 
-    protected function data(Request $request) {
+    protected function data() {
         return [
-            'name' => $request->name,
-            'label' => $request->label,
-            'permissions' => $request->permissions,
+            'name' => request()->name,
+            'label' => request()->label,
+            'permissions' => request()->permissions,
         ];
     }
 

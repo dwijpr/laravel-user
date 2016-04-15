@@ -9,7 +9,7 @@ class Role extends Model
     use MyModel;
 
     protected $fillable = [
-        'name', 'label',
+        'name', 'label', 'priority',
     ];
 
     public function permissions() {
