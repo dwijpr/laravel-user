@@ -31,7 +31,7 @@ abstract class CRUDController extends Controller {
                 strtolower($this->hasManyObjects())
             );
         }
-        $this->struct->actionViewPath = $this->actionViewPath();
+        $this->struct->actionViewPath = 'crud.partials.action';
     }
 
     public function index() {
@@ -53,8 +53,7 @@ abstract class CRUDController extends Controller {
             'classAttrs' => $this->struct,
         ];
         if($this->hasManyObjects()){
-            $hasManyObjects = 'App\\'.$this->hasManyObjects();
-            $data['hasManyObjects'] = $hasManyObjects::all();
+            $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
         }
         return view('crud.view', $data);
     }
@@ -66,8 +65,7 @@ abstract class CRUDController extends Controller {
             'classAttrs' => $this->struct,
         ];
         if($this->hasManyObjects()){
-            $hasManyObjects = 'App\\'.$this->hasManyObjects();
-            $data['hasManyObjects'] = $hasManyObjects::all();
+            $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
         }
         return view('crud.create', $data);
     }
@@ -95,8 +93,7 @@ abstract class CRUDController extends Controller {
             'classAttrs' => $this->struct,
         ];
         if($this->hasManyObjects()){
-            $hasManyObjects = 'App\\'.$this->hasManyObjects();
-            $data['hasManyObjects'] = $hasManyObjects::all();
+            $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
         }
         return view('crud.edit', $data);
     }
@@ -116,7 +113,8 @@ abstract class CRUDController extends Controller {
         return false;
     }
 
-    protected function actionViewPath() {
-        return 'crud.partials.action';
+    protected function hasManyObjectsAvailable() {
+        $hasManyObjects = 'App\\'.$this->hasManyObjects();
+        return $hasManyObjects::all();
     }
 }

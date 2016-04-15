@@ -70,7 +70,7 @@ class User extends Authenticatable
             || ($this->rolePriority() < $_user->rolePriority());
     }
 
-    private function rolePriority() {
+    public function rolePriority() {
         $roles = objectsToArray($this->roles, 'priority');
         if(count($roles)){
             return min($roles);

@@ -52,7 +52,11 @@ class UserController extends CRUDController
         return "Role";
     }
 
-    protected function actionViewPath() {
-        return 'crud.partials.users.action';
+    protected function hasManyObjectsAvailable() {
+        return \App\Role::where(
+            'priority'
+            , '>='
+            , $this->_user->rolePriority()
+        )->get();
     }
 }
