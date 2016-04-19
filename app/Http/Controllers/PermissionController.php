@@ -8,11 +8,13 @@ use App\Http\Requests;
 
 class PermissionController extends CRUDController
 {
+    use AuthTrait;
+
     public function __construct() {
         parent::__construct("Permission");
     }
 
-    public function afterLoginCheck() {
+    public function _init() {
         if (!$this->authorized('manage-permissions')) abort(403);
     }
 

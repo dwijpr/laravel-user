@@ -8,11 +8,13 @@ use App\Http\Requests;
 
 class RoleController extends CRUDController
 {
+    use AuthTrait;
+
     public function __construct() {
         parent::__construct("Role");
     }
 
-    public function afterLoginCheck() {
+    public function _init() {
         if (!$this->authorized('manage-roles')) abort(403);
     }
 
