@@ -8,11 +8,13 @@ use App\Http\Requests;
 
 class UserController extends CRUDController
 {
+    use AuthTrait;
+
     public function __construct() {
         parent::__construct("User");
     }
 
-    public function afterLoginCheck() {
+    public function _init() {
         if (!$this->authorized('manage-users')) abort(403);
     }
 

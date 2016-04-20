@@ -8,41 +8,13 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
-class Controller extends BaseController
+abstract class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
     public function __construct() {
-        if (auth()->user()) {
-            $this->_user = auth()->user();
-            $this->afterLoginCheck();
-        } else {
-            $this->middleware('auth');
-        }
-    }
-
-    protected function afterLoginCheck() {
-        return false;
-    }
-
-    protected function authorized($rule) {
-        if (is_array($rule)) {
-            if (
-                count(
-                    array_filter($rule, [$this, 'authorized'])
-                ) > 0
-            ) {
-                return true;
-            }
-            return false;
-        }else{
-            if (
-                !request()->user()
-                || request()->user()->cannot($rule)
-            ) {
-                return false;
-            }
-            return true;
+        if (method_exists($this, 'init')) {
+            $this->init();
         }
     }
 }

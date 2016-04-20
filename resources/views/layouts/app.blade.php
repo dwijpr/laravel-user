@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}</title>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-
+    {!! Html::style('thirdparty/fonts/Lato/latofonts.css') !!}
+    {!! Html::style('thirdparty/fonts/Lato/latostyle.css') !!}
+    {!! Html::style('thirdparty/font-awesome/4.6.1/css/font-awesome.css') !!}
     {!! Html::style('thirdparty/bootstrap/3.3.6/css/bootstrap.css') !!}
 
     <style>
         body {
-            font-family: 'Lato';
+            font-family: 'LatoWeb';
             padding-top: 70px;
         }
 
@@ -24,7 +24,7 @@
 
     @yield ('styles')
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    {!! Html::script('thirdparty/js/jquery-1.12.3.js') !!}
     {!! Html::script('thirdparty/bootstrap/3.3.6/js/bootstrap.js') !!}
 </head>
 <body id="app-layout">

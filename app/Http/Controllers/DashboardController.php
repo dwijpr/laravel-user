@@ -8,7 +8,9 @@ use App\Http\Requests;
 
 class DashboardController extends Controller
 {
-    protected function afterLoginCheck(){
+    use AuthTrait;
+
+    protected function _init(){
         if (!$this->authorized([
             'manage-users',
             'manage-roles',
