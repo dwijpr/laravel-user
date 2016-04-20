@@ -7,6 +7,7 @@ trait AuthTrait{
         if (!auth()->user()) {
             $this->middleware('auth');
         } else {
+            $this->_user = auth()->user();
             $this->_init();
         }
     }
