@@ -1,5 +1,14 @@
 <?php
 
+use Activity;
+
+if (!function_exists('activity_log')) {
+    function activity_log($object) {
+        $stringObject = json_encode($object);
+        Activity::log($stringObject);
+    }
+}
+
 if (!function_exists('objectsToArray')) {
     function objectsToArray($objects, $key = 'id') {
         $return = [];
