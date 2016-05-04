@@ -1,7 +1,5 @@
 <?php
 
-use Activity;
-
 if (!function_exists('activity_log')) {
     function activity_log($object) {
         $stringObject = json_encode($object);

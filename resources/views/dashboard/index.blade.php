@@ -21,6 +21,13 @@
             'permission' => 'manage-permissions',
             'desc' => 'Manage Permissions',
         ],
+        'activities' => [
+            'icon' => 'history',
+            'label' => 'Activities',
+            'url' => 'dashboard/activities',
+            'permission' => 'manage-users',
+            'desc' => 'Viewing activiy logs',
+        ],
     ];
 ?>
 

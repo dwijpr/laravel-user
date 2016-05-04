@@ -21,6 +21,7 @@ $objects = [
     "User",
     "Role",
     "Permission",
+    "Activity"
 ];
 
 foreach ($objects as $i => $v) {
