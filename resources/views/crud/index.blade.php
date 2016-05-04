@@ -18,11 +18,13 @@
                                             @if (!is_numeric($key))
                                                 {{ ucwords($key) }}
                                             @else
-                                                {{ ucwords($field) }}
+                                                {{ ucwords(to_words($field)) }}
                                             @endif
                                         </th>
                                     @endforeach
-                                    <th>Action</th>
+                                    @if (!$classAttrs->viewOnly)
+                                        <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,12 +38,13 @@
                                                 @include ('crud.partials.field')
                                             </td>
                                         @endforeach
-                                        <td>
-
-                                            @include(
-                                                $classAttrs->actionViewPath
-                                            )
-                                        </td>
+                                        @if (!$classAttrs->viewOnly)
+                                            <td>
+                                                @include(
+                                                    $classAttrs->actionViewPath
+                                                )
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -50,17 +53,19 @@
                 @else
                     <h2>No {{ $classAttrs->single }} Found!</h2>
                 @endif
-                <div>
-                    <a
-                        class="btn btn-lg btn-primary"
-                        href="{{ url(
-                            $classAttrs->backend.$classAttrs->single
-                        ) }}"
-                    >
-                        <i class="fa fa-btn fa-plus"></i>
-                        Create New {{ $classAttrs->single }}
-                    </a>
-                </div>
+                @if (!$classAttrs->viewOnly)
+                    <div>
+                        <a
+                            class="btn btn-lg btn-primary"
+                            href="{{ url(
+                                $classAttrs->backend.$classAttrs->single
+                            ) }}"
+                        >
+                            <i class="fa fa-btn fa-plus"></i>
+                            Create New {{ $classAttrs->single }}
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

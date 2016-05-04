@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('to_words')) {
+    function to_words($string) {
+        $words = explode('_', $string);
+        return implode(' ', $words);
+    }
+}
+
 if (!function_exists('activity_log')) {
     function activity_log($object) {
         $stringObject = json_encode($object);

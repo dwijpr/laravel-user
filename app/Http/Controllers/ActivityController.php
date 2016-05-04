@@ -10,6 +10,8 @@ class ActivityController extends CRUDController
 {
     use AuthTrait;
 
+    protected $viewOnly = true;
+
     public function __construct() {
         parent::__construct("Activity");
     }

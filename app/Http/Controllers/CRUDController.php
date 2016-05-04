@@ -31,6 +31,7 @@ abstract class CRUDController extends Controller {
                 strtolower($this->hasManyObjects())
             );
         }
+        $this->struct->viewOnly = @$this->viewOnly;
         $this->struct->actionViewPath = 'crud.partials.action';
     }
 
@@ -59,6 +60,9 @@ abstract class CRUDController extends Controller {
     }
 
     public function create() {
+        if ($this->struct->viewOnly) {
+            abort(404);
+        }
         $class = $this->struct->model;
         $data = [
             'class' => $class,
@@ -71,6 +75,9 @@ abstract class CRUDController extends Controller {
     }
 
     public function store() {
+        if ($this->struct->viewOnly) {
+            abort(404);
+        }
         $class = $this->struct->model;
         $this->validate(request(), $this->validation());
         $class::create($this->data());
@@ -78,6 +85,9 @@ abstract class CRUDController extends Controller {
     }
 
     public function destroy($id) {
+        if ($this->struct->viewOnly) {
+            abort(404);
+        }
         $class = $this->struct->model;
         $object = $class::findOrFail($id);
         $object->delete();
@@ -85,6 +95,9 @@ abstract class CRUDController extends Controller {
     }
 
     public function edit($id) {
+        if ($this->struct->viewOnly) {
+            abort(404);
+        }
         $class = $this->struct->model;
         $object = $class::findOrFail($id);
         $data = [
@@ -99,6 +112,9 @@ abstract class CRUDController extends Controller {
     }
 
     public function update($id) {
+        if ($this->struct->viewOnly) {
+            abort(404);
+        }
         $class = $this->struct->model;
         $object = $class::findOrFail($id);
         $this->validate(request(), $this->validation($object->id));
