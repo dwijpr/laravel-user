@@ -20,6 +20,16 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+        .btn-group {
+            white-space: nowrap;
+        }
+        .btn-group > .btn {
+            float: inherit;
+        }
+        .btn-group > .btn + .btn {
+            margin-left: -4px;
+        }
     </style>
 
     @yield ('styles')
