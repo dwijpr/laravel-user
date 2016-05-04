@@ -4,6 +4,10 @@ return [
 
     'name' => 'app.dev',
 
+    'values' => [
+        'pagination' => 10
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

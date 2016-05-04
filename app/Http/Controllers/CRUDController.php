@@ -37,7 +37,7 @@ abstract class CRUDController extends Controller {
 
     public function index() {
         $class = $this->struct->model;
-        $objects = $class::all();
+        $objects = $class::paginate(config('app.values.pagination'));
         return view('crud.index', [
             'objects' => $objects,
             'class' => $class,

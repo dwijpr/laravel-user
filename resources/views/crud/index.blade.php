@@ -68,6 +68,11 @@
                 @endif
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                {{ $objects->links() }}
+            </div>
+        </div>
     </div>
 
 @endsection

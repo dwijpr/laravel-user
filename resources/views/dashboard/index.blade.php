@@ -59,13 +59,28 @@
             <div class="col-sm-12">
                 <h1>Dashboard</h1>
                 <hr>
-                <div class="row">
+                    <?php
+                        $itemCountInARow = 3;
+                        $count = 0;
+                    ?>
                     @foreach ($objects as $object)
+                        @if ($count % $itemCountInARow == 0)
+                            <div class="row">
+                        @endif
                         @can ($object['permission'])
-                            <div class="col-md-4">
+                            <div class="col-md-{{ (12/$itemCountInARow) }}">
                                 @include ('dashboard.index.item')
                             </div>
                         @endcan
+                        <?php
+                            $count++;
+                        ?>
+                        @if (
+                            $count % $itemCountInARow == 0 
+                            OR $count > count($objects)
+                        )
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
