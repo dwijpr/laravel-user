@@ -31,6 +31,10 @@
         .btn-group > .btn + .btn {
             margin-left: -4px;
         }
+
+        .jsonview{
+            font-size: 10px;
+        }
     </style>
 
     @yield ('styles')
@@ -91,5 +95,16 @@
         </div>
     </nav>
     @yield('content')
+
+    <script>
+        $(function() {
+            $(".jsonview").each(function (){
+                $el = $(this);
+                $el.JSONView($el.data('json'), {
+                    collapsed: true
+                });
+            });
+        });
+    </script>
 </body>
 </html>

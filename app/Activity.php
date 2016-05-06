@@ -18,7 +18,7 @@ class Activity extends Model
         return [
             'id', 
             'user_id',
-            'text',
+            'text' => [ 'jsonview' => true ],
             'ip_address',
             'created_at',
         ];
