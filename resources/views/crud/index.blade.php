@@ -12,7 +12,7 @@
                             <thead>
                                 <tr>
                                     @foreach (
-                                        $class::listFields() as $key => $field
+                                        $___classAttrs->model::listFields() as $key => $field
                                     )
                                         <th>
                                             @if (!is_numeric($key))
@@ -22,7 +22,7 @@
                                             @endif
                                         </th>
                                     @endforeach
-                                    @if (!$classAttrs->viewOnly)
+                                    @if (!$___classAttrs->viewOnly)
                                         <th>Action</th>
                                     @endif
                                 </tr>
@@ -31,17 +31,17 @@
                                 @foreach($objects as $object)
                                     <tr>
                                         @foreach (
-                                            $class::listFields()
+                                            $___classAttrs->model::listFields()
                                             as $key => $field
                                         )
                                             <td>
                                                 @include ('crud.partials.field')
                                             </td>
                                         @endforeach
-                                        @if (!$classAttrs->viewOnly)
+                                        @if (!$___classAttrs->viewOnly)
                                             <td>
                                                 @include(
-                                                    $classAttrs->actionViewPath
+                                                    $___classAttrs->actionViewPath
                                                 )
                                             </td>
                                         @endif
@@ -51,18 +51,18 @@
                         </table>
                     </div>
                 @else
-                    <h2>No {{ $classAttrs->single }} Found!</h2>
+                    <h2>No {{ $___classAttrs->single }} Found!</h2>
                 @endif
-                @if (!$classAttrs->viewOnly)
+                @if (!$___classAttrs->viewOnly)
                     <div>
                         <a
                             class="btn btn-lg btn-primary"
                             href="{{ url(
-                                $classAttrs->backend.$classAttrs->single
+                                $___classAttrs->backend.$___classAttrs->single
                             ) }}"
                         >
                             <i class="fa fa-btn fa-plus"></i>
-                            Create New {{ $classAttrs->single }}
+                            Create New {{ $___classAttrs->single }}
                         </a>
                     </div>
                 @endif

@@ -10,40 +10,37 @@ use App\Http\Requests;
 
 abstract class CRUDController extends Controller {
 
-    public function __construct(
-        $model
-        , $backend = "dashboard/"
-        , $view = "objects"
-    ) {
+    public function __construct() {
         parent::__construct();
-        $this->struct = $this->buildStruct($model, $backend, $view);
+        view()->share(
+            '___classAttrs'
+            , $this->buildStruct()
+        );
     }
 
-    private function buildStruct($model, $backend, $view) {
+    private function buildStruct() {
         $struct = new \stdClass;
-        $struct->model = 'App\\'.$model;
-        $struct->single = strtolower($model);
+        $struct->model = $this->model;
+        $modelName = explode('\\', $this->model);
+        $modelName = end($modelName);
+        $struct->single = strtolower($modelName);
         $struct->plural = str_plural($struct->single);
-        $struct->backend = $backend;
-        $struct->view = $view;
-        $struct->viewPath = $struct->view.'.'.$struct->plural;
+        $struct->backend = 'dashboard/';
         $struct->redirect = $struct->backend.$struct->plural;
         if (@$this->hasManyObjects()) {
             $struct->hasMany = str_plural(strtolower($this->hasManyObjects()));
         }
         $struct->viewOnly = @$this->viewOnly;
         $struct->actionViewPath = 'crud.partials.action';
-        return $struct;
-
+        return $this->struct = $struct;
     }
 
     public function index() {
-        $class = $this->struct->model;
-        $objects = $class::paginate(config('app.values.pagination'));
         return view('crud.index', [
-            'objects' => $objects,
-            'class' => $class,
-            'classAttrs' => $this->struct,
+            'objects' =>
+                $this->struct->model::paginate(
+                    config('app.values.pagination')
+                ),
         ]);
     }
 
@@ -52,8 +49,6 @@ abstract class CRUDController extends Controller {
         $object = $class::findOrFail($id);
         $data = [
             'object' => $object,
-            'class' => $class,
-            'classAttrs' => $this->struct,
         ];
         if($this->hasManyObjects()){
             $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
@@ -67,8 +62,6 @@ abstract class CRUDController extends Controller {
         }
         $class = $this->struct->model;
         $data = [
-            'class' => $class,
-            'classAttrs' => $this->struct,
         ];
         if($this->hasManyObjects()){
             $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
@@ -104,8 +97,6 @@ abstract class CRUDController extends Controller {
         $object = $class::findOrFail($id);
         $data = [
             'object' => $object,
-            'class' => $class,
-            'classAttrs' => $this->struct,
         ];
         if($this->hasManyObjects()){
             $data['hasManyObjects'] = $this->hasManyObjectsAvailable();

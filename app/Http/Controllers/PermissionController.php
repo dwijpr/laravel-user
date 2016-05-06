@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Permission;
+
 class PermissionController extends CRUDController
 {
     use AuthTrait;
 
-    public function __construct() {
-        parent::__construct("Permission");
-    }
+    protected $model = Permission::class;
 
     public function _init() {
         if (!$this->authorized('manage-permissions')) abort(403);

@@ -6,15 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use App\Activity;
+
 class ActivityController extends CRUDController
 {
     use AuthTrait;
 
+    protected $model = Activity::class;
     protected $viewOnly = true;
-
-    public function __construct() {
-        parent::__construct("Activity");
-    }
 
     public function _init() {
         if (!$this->authorized('manage-users')) abort(403);
