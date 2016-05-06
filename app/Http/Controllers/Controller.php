@@ -14,8 +14,12 @@ abstract class Controller extends BaseController
 
     public function __construct() {
         activity_log([
-            'key' => 'Page Request',
-            'requestUri' => request()->getRequestUri(),
+            'key' => 'Request',
+            'params' => [
+                'requestUri' => request()->getRequestUri(),
+                'method' => request()->getMethod(),
+                'user-agent' => request()->header('User-Agent'),
+            ]
         ]);
         if (method_exists($this, 'init')) {
             $this->init();

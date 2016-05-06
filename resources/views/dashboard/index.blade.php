@@ -29,6 +29,15 @@
             'desc' => 'Viewing activiy logs',
         ],
     ];
+    foreach ($objects as $key => $value) {
+?>
+        @cannot($value['permission'])
+            <?php
+                unset($objects[$key]);
+            ?>
+        @endcannot
+<?php
+    }
 ?>
 
 @extends('layouts.app')
