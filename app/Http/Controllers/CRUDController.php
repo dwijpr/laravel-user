@@ -19,100 +19,99 @@ abstract class CRUDController extends Controller {
     }
 
     private function buildStruct() {
-        $struct = new \stdClass;
-        $struct->model = $this->model;
+        $___vars = new \stdClass;
+        $___vars->model = $this->model;
         $modelName = explode('\\', $this->model);
         $modelName = end($modelName);
-        $struct->single = strtolower($modelName);
-        $struct->plural = str_plural($struct->single);
-        $struct->backend = 'dashboard/';
-        $struct->redirect = $struct->backend.$struct->plural;
+        $___vars->single = strtolower($modelName);
+        $___vars->plural = str_plural($___vars->single);
+        $___vars->backend = 'dashboard/';
+        $___vars->redirect = $___vars->backend.$___vars->plural;
         if (@$this->hasManyObjects()) {
-            $struct->hasMany = str_plural(strtolower($this->hasManyObjects()));
+            $___vars->hasMany = str_plural(strtolower($this->hasManyObjects()));
         }
-        $struct->viewOnly = @$this->viewOnly;
-        $struct->actionViewPath = 'crud.partials.action';
-        return $this->struct = $struct;
+        $___vars->viewOnly = @$this->viewOnly;
+        $___vars->actionViewPath = 'crud.partials.action';
+        return $this->___vars = $___vars;
     }
 
     public function index() {
         return view('crud.index', [
             'objects' =>
-                $this->struct->model::paginate(
+                $this->___vars->model::paginate(
                     config('app.values.pagination')
                 ),
         ]);
     }
 
     public function view($id) {
-        $class = $this->struct->model;
-        $object = $class::findOrFail($id);
-        $data = [
-            'object' => $object,
-        ];
         if($this->hasManyObjects()){
-            $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
+            view()->share(
+                'hasManyObjects'
+                , $this->hasManyObjectsAvailable()
+            );
         }
-        return view('crud.view', $data);
+        return view('crud.view', [
+            'object' => $this->___vars->model::findOrFail($id)
+        ]);
     }
 
     public function create() {
-        if ($this->struct->viewOnly) {
+        if ($this->___vars->viewOnly) {
             abort(404);
         }
-        $class = $this->struct->model;
-        $data = [
-        ];
         if($this->hasManyObjects()){
-            $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
+            view()->share(
+                'hasManyObjects'
+                , $this->hasManyObjectsAvailable()
+            );
         }
-        return view('crud.create', $data);
+        return view('crud.create');
     }
 
     public function store() {
-        if ($this->struct->viewOnly) {
+        if ($this->___vars->viewOnly) {
             abort(404);
         }
-        $class = $this->struct->model;
         $this->validate(request(), $this->validation());
-        $class::create($this->data());
-        return redirect($this->struct->redirect);
+        $this->___vars->model::create($this->data());
+        return redirect($this->___vars->redirect);
     }
 
     public function destroy($id) {
-        if ($this->struct->viewOnly) {
+        if ($this->___vars->viewOnly) {
             abort(404);
         }
-        $class = $this->struct->model;
-        $object = $class::findOrFail($id);
-        $object->delete();
-        return redirect($this->struct->redirect);
+        $this->___vars->model::findOrFail($id)->delete();
+        return redirect($this->___vars->redirect);
     }
 
     public function edit($id) {
-        if ($this->struct->viewOnly) {
+        if ($this->___vars->viewOnly) {
             abort(404);
         }
-        $class = $this->struct->model;
-        $object = $class::findOrFail($id);
-        $data = [
-            'object' => $object,
-        ];
         if($this->hasManyObjects()){
-            $data['hasManyObjects'] = $this->hasManyObjectsAvailable();
+            view()->share(
+                'hasManyObjects'
+                , $this->hasManyObjectsAvailable()
+            );
         }
-        return view('crud.edit', $data);
+        return view('crud.edit', [
+            'object' => $this->___vars->model::findOrFail($id),
+        ]);
     }
 
     public function update($id) {
-        if ($this->struct->viewOnly) {
+        if ($this->___vars->viewOnly) {
             abort(404);
         }
-        $class = $this->struct->model;
-        $object = $class::findOrFail($id);
-        $this->validate(request(), $this->validation($object->id));
+        $object = $this->___vars->model::findOrFail($id);
+        $this->validate(
+            request()
+            , $this->validation($object->id)
+        );
         $object->update($this->data(request()));
-        return redirect($this->struct->redirect);
+        return redirect($this->___vars->redirect);
     }
 
     protected abstract function validation($id = false);
