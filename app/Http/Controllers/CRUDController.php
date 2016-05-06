@@ -16,23 +16,25 @@ abstract class CRUDController extends Controller {
         , $view = "objects"
     ) {
         parent::__construct();
-        $this->struct = new \stdClass;
-        $this->struct->model = 'App\\'.$model;
-        $this->struct->single = strtolower($model);
-        $this->struct->plural = str_plural($this->struct->single);
-        $this->struct->backend = $backend;
-        $this->struct->view = $view;
-        $this->struct->viewPath = $this->struct->view
-            .'.'.$this->struct->plural;
-        $this->struct->redirect = $this->struct->backend
-            .$this->struct->plural;
+        $this->struct = $this->buildStruct($model, $backend, $view);
+    }
+
+    private function buildStruct($model, $backend, $view) {
+        $struct = new \stdClass;
+        $struct->model = 'App\\'.$model;
+        $struct->single = strtolower($model);
+        $struct->plural = str_plural($struct->single);
+        $struct->backend = $backend;
+        $struct->view = $view;
+        $struct->viewPath = $struct->view.'.'.$struct->plural;
+        $struct->redirect = $struct->backend.$struct->plural;
         if (@$this->hasManyObjects()) {
-            $this->struct->hasMany = str_plural(
-                strtolower($this->hasManyObjects())
-            );
+            $struct->hasMany = str_plural(strtolower($this->hasManyObjects()));
         }
-        $this->struct->viewOnly = @$this->viewOnly;
-        $this->struct->actionViewPath = 'crud.partials.action';
+        $struct->viewOnly = @$this->viewOnly;
+        $struct->actionViewPath = 'crud.partials.action';
+        return $struct;
+
     }
 
     public function index() {

@@ -10,6 +10,7 @@
     {!! Html::style('thirdparty/fonts/Lato/latostyle.css') !!}
     {!! Html::style('thirdparty/font-awesome/4.6.1/css/font-awesome.css') !!}
     {!! Html::style('thirdparty/bootstrap/3.3.6/css/bootstrap.css') !!}
+    {!! Html::style('thirdparty/jquery-jsonview/1.2.3/dist/jquery.jsonview.css') !!}
 
     <style>
         body {
@@ -36,6 +37,7 @@
     
     {!! Html::script('thirdparty/js/jquery-1.12.3.js') !!}
     {!! Html::script('thirdparty/bootstrap/3.3.6/js/bootstrap.js') !!}
+    {!! Html::script('thirdparty/jquery-jsonview/1.2.3/dist/jquery.jsonview.js') !!}
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-fixed-top">
