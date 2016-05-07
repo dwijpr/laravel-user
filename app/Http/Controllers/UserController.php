@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\User;
+use App\Role;
 
 class UserController extends CRUDController
 {
@@ -54,11 +55,11 @@ class UserController extends CRUDController
     }
 
     protected function hasManyObjects() {
-        return "Role";
+        return Role::class;
     }
 
     protected function hasManyObjectsAvailable() {
-        return \App\Role::where(
+        return Role::where(
             'priority'
             , '>='
             , $this->_user->rolePriority()

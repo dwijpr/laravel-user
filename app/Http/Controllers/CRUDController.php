@@ -110,7 +110,6 @@ abstract class CRUDController extends Controller {
     }
 
     protected function hasManyObjectsAvailable() {
-        $hasManyObjects = 'App\\'.$this->hasManyObjects();
-        return $hasManyObjects::all();
+        return $this->hasManyObjects()::all();
     }
 }

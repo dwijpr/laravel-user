@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Role;
+use App\Permission;
 
 class RoleController extends CRUDController
 {
@@ -54,6 +55,6 @@ class RoleController extends CRUDController
     }
 
     protected function hasManyObjects() {
-        return "Permission";
+        return Permission::class;
     }
 }
