@@ -19,6 +19,9 @@ abstract class CRUDController extends Controller {
         $this->middleware('crud.view_only', ['only' => [
             'create', 'store', 'destroy', 'edit', 'update',
         ]]);
+        $this->middleware('crud.has_many_objects', [ 'only' => [
+            'view', 'create', 'edit',
+        ]]);
     }
 
     private function buildVars() {
@@ -31,6 +34,9 @@ abstract class CRUDController extends Controller {
         $___vars->redirect = $___vars->backend.$___vars->plural;
         if (@$this->hasManyObjects()) {
             $___vars->hasMany = str_plural(strtolower($this->hasManyObjects()));
+            request()->request->add([
+                'crud.hasManyObjects' => $this->hasManyObjectsAvailable()
+            ]);
         }
         $___vars->viewOnly = @$this->viewOnly;
         request()->request->add(['crud.viewOnly' => $___vars->viewOnly]);
@@ -48,24 +54,12 @@ abstract class CRUDController extends Controller {
     }
 
     public function view($id) {
-        if($this->hasManyObjects()){
-            view()->share(
-                'hasManyObjects'
-                , $this->hasManyObjectsAvailable()
-            );
-        }
         return view('crud.view', [
             'object' => $this->___vars->model::findOrFail($id)
         ]);
     }
 
     public function create() {
-        if($this->hasManyObjects()){
-            view()->share(
-                'hasManyObjects'
-                , $this->hasManyObjectsAvailable()
-            );
-        }
         return view('crud.create');
     }
 
@@ -81,12 +75,6 @@ abstract class CRUDController extends Controller {
     }
 
     public function edit($id) {
-        if($this->hasManyObjects()){
-            view()->share(
-                'hasManyObjects'
-                , $this->hasManyObjectsAvailable()
-            );
-        }
         return view('crud.edit', [
             'object' => $this->___vars->model::findOrFail($id),
         ]);
