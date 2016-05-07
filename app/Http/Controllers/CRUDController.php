@@ -14,15 +14,17 @@ abstract class CRUDController extends Controller {
         parent::__construct();
         view()->share(
             '___classAttrs'
-            , $this->buildStruct()
+            , $this->buildVars()
         );
+        $this->middleware('crud.view_only', ['only' => [
+            'create', 'store', 'destroy', 'edit', 'update',
+        ]]);
     }
 
-    private function buildStruct() {
+    private function buildVars() {
         $___vars = new \stdClass;
         $___vars->model = $this->model;
-        $modelName = explode('\\', $this->model);
-        $modelName = end($modelName);
+        $modelName = last(explode('\\', $this->model));
         $___vars->single = strtolower($modelName);
         $___vars->plural = str_plural($___vars->single);
         $___vars->backend = 'dashboard/';
@@ -31,6 +33,7 @@ abstract class CRUDController extends Controller {
             $___vars->hasMany = str_plural(strtolower($this->hasManyObjects()));
         }
         $___vars->viewOnly = @$this->viewOnly;
+        request()->request->add(['crud.viewOnly' => $___vars->viewOnly]);
         $___vars->actionViewPath = 'crud.partials.action';
         return $this->___vars = $___vars;
     }
@@ -57,9 +60,6 @@ abstract class CRUDController extends Controller {
     }
 
     public function create() {
-        if ($this->___vars->viewOnly) {
-            abort(404);
-        }
         if($this->hasManyObjects()){
             view()->share(
                 'hasManyObjects'
@@ -70,26 +70,17 @@ abstract class CRUDController extends Controller {
     }
 
     public function store() {
-        if ($this->___vars->viewOnly) {
-            abort(404);
-        }
         $this->validate(request(), $this->validation());
         $this->___vars->model::create($this->data());
         return redirect($this->___vars->redirect);
     }
 
     public function destroy($id) {
-        if ($this->___vars->viewOnly) {
-            abort(404);
-        }
         $this->___vars->model::findOrFail($id)->delete();
         return redirect($this->___vars->redirect);
     }
 
     public function edit($id) {
-        if ($this->___vars->viewOnly) {
-            abort(404);
-        }
         if($this->hasManyObjects()){
             view()->share(
                 'hasManyObjects'
@@ -102,9 +93,6 @@ abstract class CRUDController extends Controller {
     }
 
     public function update($id) {
-        if ($this->___vars->viewOnly) {
-            abort(404);
-        }
         $object = $this->___vars->model::findOrFail($id);
         $this->validate(
             request()
