@@ -66,6 +66,20 @@ return [
             'engine' => null,
         ],
 
+        'files' => [
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'port' => '3306',
+            'database' => 'files',
+            'username' => 'root',
+            'password' => '1234',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'sub' => [
             'driver' => 'mysql',
             'host' => 'localhost',
