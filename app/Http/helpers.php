@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('bool_val')) {
+    function bool_val($bool) {
+        $text = $bool?'true':'false';
+        return $text;
+    }
+}
+
 if (!function_exists('to_words')) {
     function to_words($string) {
         $words = explode('_', $string);
