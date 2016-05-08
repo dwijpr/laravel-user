@@ -15,9 +15,17 @@ if (!function_exists('to_words')) {
 }
 
 if (!function_exists('activity_log')) {
-    function activity_log($object) {
+    function activity_log($key, $object = []) {
         $stringObject = json_encode($object);
-        Activity::log($stringObject);
+        \App\Activity::create([
+            'user_id' => @auth()->user()->id,
+            'key' => $key,
+            'uri' => request()->getRequestUri(),
+            'method' => request()->getMethod(),
+            'user_agent' => request()->header('User-Agent'),
+            'ip_address' => request()->ip(),
+            'data' => $stringObject,
+        ]);
     }
 }
 

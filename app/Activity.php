@@ -8,8 +8,9 @@ class Activity extends Model
 {
     use MyModel;
 
-    protected $table = 'activity_log';
-
+    protected $fillable = [
+        'user_id', 'data', 'key', 'user_agent', 'ip_address',
+    ];
     /*
      * MyModel Trait
      */
@@ -18,8 +19,10 @@ class Activity extends Model
         return [
             'id', 
             'user_id',
-            'text' => [ 'jsonview' => true ],
+            'key',
+            'user_agent',
             'ip_address',
+            'data' => [ 'jsonview' => true ],
             'created_at',
         ];
     }

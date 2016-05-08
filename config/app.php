@@ -167,7 +167,6 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        Spatie\Activitylog\ActivitylogServiceProvider::class,
     ],
 
     /*
@@ -220,7 +219,6 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Activity' => Spatie\Activitylog\ActivitylogFacade::class,
     ],
 
 ];
